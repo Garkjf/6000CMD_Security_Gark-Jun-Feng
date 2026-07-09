@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ABC Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Amazing Bargain's Central Shop</h1>
+        <div class="nav-links">
+            <form action="{{ url_for('index') }}" method="GET" style="margin-bottom: 20px;">
+                <input type="text" name="q" placeholder="Search products..." value="{{ search_query }}">
+                <button type="submit">Search</button>
+            </form>
+            {% if username %}
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('cart') }}">Cart</a>
+            <form method="post" action="{{ url_for('logout') }}" class="inline-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn">Logout</button>
+            </form>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if username %}
+    <p>Welcome, {{ username }}!</p>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h2>Products</h2>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{{ url_for('product_detail', product_id=product.id) }}" style="text-decoration: none; color: inherit;"></a>
+            <h3>{{ product.name }}</h3>
+            <p class="price">${{ "%.2f"|format(product.price) }}</p>
+            <p>{{ product.description or 'No description available.' }}</p>
+
+            <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn" >View Details</a>
+
+            {% if username %}
+            {% if product.stock > 0 %}
+            <form method="post" action="{{ url_for('add_to_cart') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="qty-input">
+                <span class="stock-info">In stock: {{ product.stock }}</span>
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+            {% else %}
+            <p style="color: #dc3545; font-weight: bold;">Out of Stock</p>
+            {% endif %}
+            {% else %}
+            <p><a href="{{ url_for('login') }}">Login to add to cart</a></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>

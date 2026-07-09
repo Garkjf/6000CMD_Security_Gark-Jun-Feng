@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <style>.form-container { max-width: 500px; margin: 50px auto; background: white; padding: 30px; border-radius: 8px; }</style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Product</h2>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" name="price" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Stock Quantity</label>
+                <input type="number" name="stock" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Product Image</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-success">Create Product</button>
+            <a href="{{ url_for('seller_dashboard') }}" class="btn" style="background: #666;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

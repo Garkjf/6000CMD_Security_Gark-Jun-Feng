@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>About - ABC Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>About ABC Shop</h1>
+        <div class="nav-links">
+            <a href="{{ url_for('profile') }}">Back</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Welcome to ABC Shop!</h2>
+        <p>This is a simple e-commerce application built with Flask and SQLite. It demonstrates basic web development concepts including:</p>
+        
+        <ul>
+            <li><strong>User Authentication:</strong> Sign up, login, and logout</li>
+            <li><strong>User Profiles:</strong> View your information</li>
+            <li><strong>Shopping Cart:</strong> Add and remove items from your cart</li>
+            <li><strong>Product :</strong> Browse available products</li>
+            <li><strong>Database :</strong> SQLite database </li>
+        </ul>
+        
+        <h3>Features:</h3>
+        <ul>
+            <li>Secure password hashing</li>
+            <li>Session management</li>
+            <li>Responsive design</li>
+            <li>Clean and simple interface</li>
+        </ul>
+        
+        <p>This application is perfect for learning web development fundamentals!</p>
+    </div>
+</body>
+
+</html>

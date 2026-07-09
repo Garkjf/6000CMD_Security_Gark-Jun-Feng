@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Become a Seller</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upgrade_to_seller.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Apply for Seller Account</h2>
+        <p>Please provide details about your business for admin approval.</p>
+
+        <form method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" name="business_name" required placeholder="e.g., John's Electronics">
+            </div>
+            <div class="form-group">
+                <label>Reason for Selling / Business Description</label>
+                <textarea name="reason" rows="4" style="width: 100%; padding: 8px;" required placeholder="Describe what you plan to sell..."></textarea>
+            </div>
+            <button type="submit" class="btn">Submit Application</button>
+        </form>
+
+        <div class="links">
+            <a href="{{ url_for('profile') }}">Cancel</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Site Analytics</h1>
+
+    <div class="stats-box">
+        <div class="stat-card">
+            <h2>{{ total_views }}</h2>
+            <p>Total Page Views</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ total_users }}</h2>
+            <p>Total Users</p>
+        </div>
+    </div>
+
+    <h2>Top Visited Pages</h2>
+
+    <table class="analytics-table">
+        <thead>
+            <tr>
+                <th>Path</th>
+                <th>Visits</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in top_paths %}
+            <tr>
+                <td>{{ row.path }}</td>
+                <td>{{ row.cnt }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="back-btn">← Back to Admin</a>
+</div>
+
+</body>
+</html>

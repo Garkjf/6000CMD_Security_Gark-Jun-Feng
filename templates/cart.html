@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cart - ABC Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Shopping Cart</h1>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}">Continue Shopping</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <form method="post" action="{{ url_for('logout') }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    {% if cart_items %}
+        {% set ns = namespace(total=0) %}
+        
+        {% for item in cart_items %}
+            {% set ns.total = ns.total + (item.price * item.quantity) %}
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h3>{{ item.name }}</h3>
+                    <p>Price: ${{ "%.2f"|format(item.price) }}</p>
+                    
+                    <form action="{{ url_for('update_cart') }}" method="post" class="quantity-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="cart_id" value="{{ item.cart_id }}">
+                        <label>Quantity:</label>
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.stock }}" class="qty-input">
+                        <button type="submit" class="btn btn-sm">Update</button>
+                    </form>
+
+                    <p>Subtotal: ${{ "%.2f"|format(item.price * item.quantity) }}</p>
+                </div>
+                
+                <div class="cart-item-actions">
+                    <form method="post" action="{{ url_for('remove_from_cart') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="cart_id" value="{{ item.cart_id }}">
+                        <button type="submit" class="btn btn-danger">Remove All</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="checkout-section">
+            <span class="total-price">Total: ${{ "%.2f"|format(ns.total) }}</span>
+            
+            <form method="post" action="{{ url_for('checkout') }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-checkout">Proceed to Checkout</button>
+            </form>
+        </div>
+
+    {% else %}
+        <div class="empty-cart">
+            <h2>Your cart is empty</h2>
+            <p>Add some products to get started!</p>
+            <a href="{{ url_for('index') }}" class="btn">Go Shopping</a>
+        </div>
+    {% endif %}
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash" style="margin: 20px; text-align: center;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <script src="{{ url_for('static', filename='js/session.js') }}"></script>
+</body>
+
+</html>

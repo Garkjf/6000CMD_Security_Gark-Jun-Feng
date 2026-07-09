@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Seller Dashboard</h1>
+        <div>
+            <a href="{{ url_for('index') }}" class="btn">Back to Shop</a>
+            <a href="{{ url_for('seller_add_product') }}" class="btn" style="background: #28a745;">Add New Product</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>My Products</h2>
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>${{ "%.2f"|format(product.price) }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>
+                            <a href="{{ url_for('seller_edit_product', product_id=product.id) }}" class="btn">Edit</a>
+                            <form method="post" action="{{ url_for('seller_delete_product') }}" class="inline-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <button type="submit" class="btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4">No products yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Recent Sales</h2>
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Buyer</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transactions %}
+                    <tr>
+                        <td>{{ t.order_date }}</td>
+                        <td>{{ t.buyer }}</td>
+                        <td>Product ID: {{ t.product_id }}</td>
+                        <td>{{ t.quantity }}</td>
+                        <td>${{ "%.2f"|format(t.price * t.quantity) }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5">No sales yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

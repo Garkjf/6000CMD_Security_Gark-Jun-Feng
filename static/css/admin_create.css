@@ -1,0 +1,154 @@
+@import url('base.css');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.dashboard {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 900px;
+}
+
+.login-container, .dashboard-container {
+    width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-reset {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.btn-reset:hover {
+    background-color: #218838;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    display: inline-block;
+    margin-bottom: 0; 
+    margin-right: 10px; 
+    padding: 4px 8px; 
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px; 
+    font-size: 14px; 
+    border: none;
+    cursor: pointer;
+}
+.add-btn:hover {
+    background-color: #0056b3;
+}
+
+.status-active {
+    color: green;
+}
+
+.status-deactivated {
+    color: red;
+}

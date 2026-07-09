@@ -1,0 +1,51 @@
+@import url('base.css');
+
+body {
+    /* Page-specific overrides */
+    margin: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn {
+    background: #2c5aa0;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: #1e3d6f;
+}
+
+.nav-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #2c5aa0;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.profile-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    border: 2px solid #1e3d6f;
+}

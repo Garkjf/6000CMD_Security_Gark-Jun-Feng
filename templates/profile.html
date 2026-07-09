@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile - ABC Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Profile</h1>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if user['role'] == 'seller' %}
+                <a href="{{ url_for('seller_dashboard') }}">Seller Dashboard</a>
+            {% endif %}
+            {% if user['role'] == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+            {% endif %}
+            <a href="{{ url_for('cart') }}">Cart</a>
+            <form method="post" action="{{ url_for('logout') }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-info">
+        <h2>User Information</h2>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Role:</strong> {{ user.role|title }}</p>
+        <p><strong>Member since:</strong> {{ user.created_at }}</p>
+
+        <div class="actions" style="margin-top: 20px;">
+            <a href="{{ url_for('orders') }}" class="btn">View Order History</a>
+
+            <div class="actions">
+                {% if user.role == 'customer' %}
+                {% if seller_request %}
+                <button class="btn" style="background-color: #6c757d; cursor: not-allowed;" disabled>
+                    Application Pending
+                </button>
+                {% else %}
+                <a href="{{ url_for('upgrade_to_seller') }}">
+                    <button class="btn">Apply to become a Seller</button>
+                </a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
